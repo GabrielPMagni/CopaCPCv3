@@ -1,5 +1,5 @@
 <?php
-include_once("./API/models/utils/shared.php");
+include_once($_SERVER['DOCUMENT_ROOT']."/API/models/utils/shared.php");
 class Pessoa 
 {
     private $id;
@@ -21,7 +21,12 @@ class Pessoa
 
     public function setEmail($email)
     {
-        $this->email = $email;
+        $email = trim($email);
+        if (ModelUtils::validaEmail($email)) {
+            $this->email = $email;
+            return true;
+        }
+        return false;
     }
 
     public function getCidade()

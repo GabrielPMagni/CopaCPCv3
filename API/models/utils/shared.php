@@ -1,14 +1,17 @@
 <?php
-class Utils
+class ModelUtils
 {
-    private $emailModelo = '/[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g';
-
-    public function validateEmail($email)
+    
+    public static function validaEmail($email)
     {
-        if (preg_match($this->emailModelo, $email))
-        {
+        $emailModelo = '/[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g';
+        return (preg_match($emailModelo, $email));
+    }
 
-        }
+    public static function getEstadosBrasil()
+    {
+        $listagemEstadosURL = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
+        return require($listagemEstadosURL);
     }
 }
 ?>
