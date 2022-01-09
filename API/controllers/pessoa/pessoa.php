@@ -1,40 +1,20 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT']."/API/models/pessoa.php");
-require_once($_SERVER['DOCUMENT_ROOT']."/API/controllers/utils/shared.php");
 
-$metodoRequisicao = $_SERVER['REQUEST_METHOD'];
-$caminhoRequisicao = $_SERVER['REQUEST_URI'];
-$parametrosRequisicao = null;
-switch($metodoRequisicao) 
-{
-    case "GET":
-        if (isset($_GET) && !empty($_GET)){
-            $parametrosRequisicao = json_encode($_GET);
-        }
-        break;
-    case "POST":
-        $data = json_encode(file_get_contents("php://input"));
-        if ($data && !empty($data)){
-            $parametrosRequisicao = $data;
-        }
-        break;
-    case "PATCH":
-        $data = json_encode(file_get_contents("php://input"));
-        if ($data && !empty($data)){
-            $parametrosRequisicao = $data;
-        }
-        break;
-    case "DELETE":
-        $data = json_encode(file_get_contents("php://input"));
-        if ($data && !empty($data)){
-            $parametrosRequisicao = $data;
-        }
-        break;
-    default:
-        ControllerUtils::showMessage("Méotodo não suportado", 405);
-        break;
+$metodo = $_SERVER['REQUEST_METHOD'];
 
-} 
+$data = json_decode(file_get_contents('php://input'));
+
+$retorno_exemplo = array();
+for ($i = 0; $i<20;$i++) {
+    $retorno_exemplo[$i] = array('id'=>$i, 'nome'=>'João'.$i);
+}
+
+if ($metodo === 'POST') {
+    $id = $data->id;
+    echo($retorno_exemplo[$id]['nome']);
+} else {
+    echo('Método inválido');
+}
 
 
-?>
+// echo $data->id;
